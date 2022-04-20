@@ -1,7 +1,8 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
+from happymimi_msgs.srv import StrTrg
 
-from happymimi_voice_msgs.srv import TTS
+#from happymimi_voice_msgs.srv import TTS
 #音声認識
 from happymimi_voice_msgs.srv import SpeechToText
 
@@ -41,7 +42,7 @@ class GgiinStruction:
         print("server is ready")
         self.stt=rospy.ServiceProxy('/stt_server',SpeechToText)
         self.server=rospy.Service('/ggi_learning',GgiLearning,self.register_object)
-        self.tts=rospy.ServiceProxy('/tts', TTS)
+        self.tts=rospy.ServiceProxy('/tts', StrTrg)
 
     #オブジェクト認識と登録
     def register_object(self,req):
