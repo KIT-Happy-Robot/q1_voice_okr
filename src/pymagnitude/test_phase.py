@@ -221,6 +221,7 @@ class SearchObject():
             return False
 
 
+
     def wordJoin(self,correct:int) -> str:
         self.tts_server('I will go '+' '.join(self.dict['place_feature'][correct]) +' '.join(self.dict['place_name'][correct])+' is this  OK?')
         if self.listenAnswer()==False:
