@@ -1,0 +1,4 @@
+input: aaaaaaaaaaaaaaaaaaaa
+output: example
+bbbbbbbbbbb bb
+cccccccccccccccccc cc
