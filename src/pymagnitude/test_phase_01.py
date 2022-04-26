@@ -16,6 +16,9 @@ from nltk.tag.stanford import StanfordPOSTagger
 import rospy
 import random
 
+str_00 = "bring me coffee under the white chair"
+ans_00 = "yes"
+
 
 file_path=path.expanduser('~/catkin_ws/src/happymimi_voice/config/')
 minimum_value=0.5 #コサイン類似度の最低値
@@ -32,9 +35,9 @@ stt_pub = rospy.ServiceProxy('/stt_server', SpeechToText)
 class GgiTest():
     def __init__(self):
         #ベクトル読み込み
-        print('Wahing for tts and stt_server')
-        rospy.wait_for_service('/tts')
-        rospy.wait_for_service('/stt_server')
+        #print('Wahing for tts and stt_server')
+        #rospy.wait_for_service('/tts')
+        #rospy.wait_for_service('/stt_server')
         print('test_phase is ready')
         self.stt=rospy.ServiceProxy('/stt_server',SpeechToText)
         self.tts=rospy.ServiceProxy('/tts', StrTrg)
@@ -62,18 +65,18 @@ class GgiTest():
             place=[]
             place_feature=[]
             #音声認識
-            string=self.stt(short_str=False)
-
+            #string=self.stt(short_str=False)
+            string = str_00
             shut='shut down'
             #shut downを認識したら終了
-            if  shut in string.result_str:
+            if  shut in string:#.result_str:
                 self.tts("shut down")
                 break
 
             else:
                 i=0
                 #形態素解析
-                pos = pos_tag.tag(string.result_str.split())
+                pos = pos_tag.tag(string.split())
                 #場所とオブジェクトそれぞれの特徴と名前をいつにまとめる
                 while i<len(pos):
                     #前置詞かつofではなかったら場所のリストに追加
@@ -188,11 +191,12 @@ class SearchObject():
 
     def listenAnswer(self) -> str:
         while 1:
-            y=self.stt_server(short_str=False)
-            if 'yes' in y.result_str:
+            #y=self.stt_server(short_str=False)
+            y = ans_00
+            if 'yes' in y:#y.result_str:
                 self.tts_server('OK.')
                 return 'yes'
-            elif 'no' in y.result_str:
+            elif 'no' in y:
                 return 'no'
 
 
