@@ -1,4 +1,102 @@
-input: aaaaaaaaaaaaaaaaaaaa
-output: example
-bbbbbbbbbbb bb
-cccccccccccccccccc cc
+input: Robot please go to the {room}, look for a boy, and tell a joke
+output: 
+input: Go to the {location}, find the tray, and give it to {name} at the {location}
+output: 
+input: Could you tell me how many people in the {room} are standing
+input: Could you Tell me the name of the person in the {room}
+input: Could you go to the {location}, find the bowl, and place it on the {location}
+Robot please locate a girl in the {room} and say the day of the month
+Robot please locate a male person in the {room} and tell the time
+Could you please go to the {location}, look for the tray, and place it on the {location}
+Could you please navigate to the {location}, look for the cloth, and put it on the {location}
+Robot please face {name} at the {location} and escort him to his uber
+Robot please take my trolley to the taxi
+Navigate to the {room}, find a boy, and say the day of the week
+Robot please distribute {category}s to everyone in the {room}.
+Please find a person sitting in the {room} and tell the time
+Robot please answer a question to the person {gesture} in the {room}
+Tell me what's the biggest object on the {location}
+Get the tray from the {location} and put it on the {location}
+Put the tray on the {location}
+Contact {name} at the rear {location} and introduce her to all the men in the {room}.
+Deliver the tray to the person {gesture} in the {room}
+Please tell me which are the three thinnest {category} on the {location}
+Bring me the {object}
+Robot please contact {name} at the {location} and take him to his uber
+Could you please go to the {location}, meet {name}, and take her to the {location}
+Find {name} at the main {location} and introduce her to everyone in the {room}.
+Could you locate the tray in the {room}
+Robot please lead {name} to the {location}, you may find her at the {location}
+Navigate to the {location}, look for the bowl, and put it on the {location}
+Robot please find {name} at the main {location} and introduce him to everyone in the {room}.
+Robot please contact {name} at the {location} and accompany her to her uber
+Contact {name} at the back door and introduce her to everyone in the {room}.
+Could you meet {name} and guide her
+Could you please escort {name} from the {location} to the {location}
+Please Tell me how many tray there are on the {location}
+Provide {category}s to everyone in the {room}.
+Robot please bring my trolley to the uber
+Could you please place the cloth on the {location}
+Robot please Tell me what's the largest {category} on the {location}
+Could you please get the bowl and put it on the {location}
+Could you please grasp the bowl from the {location} and place it on the {location}
+Robot please escort {name} to the {location}, you can find him at the {location}
+Go to the {room}, find a person standing, and say what day is tomorrow
+Get the cloth from the {location} and place it on the {location}
+Meet {name} at the {location} and follow her
+Face {name} at the back door and introduce him to everyone in the {room}.
+Please find {name} at the {location} and accompany her to her uber
+Robot please look for a person sitting in the {room} and tell something about yourself
+Please look for three {category} in the {room}
+Go to the {location}, locate the cloth, and place it on the {location}
+Please follow {name} from the {location} to the {room}
+Could you contact {name} at the rear door and introduce her to everyone in the {room}.
+Could you contact {name} at the back door and introduce her to everyone in the {room}.
+Please put the tray on the {location}
+Robot please tell me which are the three heaviest {category} on the {location}
+Could you please go to the {location}, meet {name}, and lead him to the {location}
+Robot please deliver {category} to the person {gesture} in the {room}
+Contact {name} at the {location} and ask her to leave
+Could you guide {name} to the {location}, you can find her at the {location}
+Could you give {category} to me
+Could you bring {category} to the person {gesture} in the {room}
+Please deliver {category} to all the women in the {room}.
+Please accompany {name} to the {location}, you may find her at the {location}
+Robot please get the {object} from the {location} and place it on the {location}
+Locate a person lying down in the {room} and tell something about yourself
+Could you contact {name} at the {location} and ask her to leave
+Robot please navigate to the {room}, locate a girl, and answer a question
+Robot please face {name} at the main {location} and introduce him to all the women in the {room}.
+Meet {name} at the {location}, follow her, and navigate to the {room}
+Robot please face {name} at the back {location} and introduce her to everyone in the {room}.
+Could you please look for three {category} in the {room}
+Please navigate to the {room}, find a person sitting, and say a joke
+Navigate to the {location}, meet {name}, and take him to the {location}
+Could you navigate to the {location}, meet {name}, and follow him
+Navigate to the {location}, locate the bowl, and deliver it to me
+Please go to the {location}, meet {name}, and take her
+Could you distribute {category} to everyone in the {room}.
+Give {category}s to all the men in the {room}.
+Tell me which are the three heaviest {category} on the {location}
+Robot please pick up the cloth from the {location} and place it on the {location}
+Please deliver {category} to everyone in the {room}.
+Tell me which are the three biggest objects on the {location}
+Could you go to the {location}, meet {name}, and lead him to the {location}
+Navigate to the {location}, look for the tray, and put it on the {location}
+Please meet {name} at the {location}, follow him, and navigate to the {room}
+Tell me which are the three largest {category} on the {location}
+Contact {name} at the {location} and take him to his cab
+Tell me how many tray there are on the {location}
+Deliver {category}s to all the guests in the {room}.
+Robot please meet {name} at the {location}, follow him, and go to the {room}
+Take the cloth from the {location} and bring it to {name} at the {location}
+Please find a woman in the {room} and answer a question
+Give the {object} to me
+Could you meet {name} at the {location}, follow him, and navigate to the {room}
+Face {name} at the front {location} and introduce him to all the guests in the {room}.
+Locate the {category} in the {room}
+Navigate to the {room}, find a person {gesture}, and say what day is tomorrow
+Robot please pick up the bowl from the {location} and deliver it to me
+Go to the {location}, look for the tray, and put it on the {location}
+Go to the {room}, find a man, and say something about yourself
+Tell me how many people in the {room} are boys
