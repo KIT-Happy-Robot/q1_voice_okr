@@ -16,18 +16,19 @@ from nltk.tag.stanford import StanfordPOSTagger
 import rospy
 import random
 
+from pymagnitude import Magnitude
 
 file_path=path.expanduser('~/catkin_ws/src/happymimi_voice/config/')
 minimum_value=0.5 #コサイン類似度の最低値
 #ベクトル読み込み
 print("data loading...")
-word_vectors = api.load("glove-twitter-200")
-#nltkのモデルを読み込む
+file_path_mg=(file_path + 'stanford/glove.840B.300d.magnitude')
+word_vectors = Magnitude(file_path_mg)
+
+#nltkのモデルを読み込み
+print("pos_tag")
 pos_tag = StanfordPOSTagger(model_filename = file_path + "dataset/stanford-postagger/models/english-bidirectional-distsim.tagger",
                             path_to_jar = file_path + "dataset/stanford-postagger/stanford-postagger.jar")
-
-tts_pub = rospy.ServiceProxy('/tts', StrTrg)
-stt_pub = rospy.ServiceProxy('/stt_server', SpeechToText)
 
 class GgiTest():
     def __init__(self):
@@ -43,7 +44,6 @@ class GgiTest():
 
     def main(self,req):
         switch_num=0
-        tts_pub('start test_phase')
         print("start test_phase")
         #登録したファイルを読み込む
         if not path.isfile(file_path+'/object_file.pkl'):
