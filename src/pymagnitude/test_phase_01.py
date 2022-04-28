@@ -16,12 +16,12 @@ from nltk.tag.stanford import StanfordPOSTagger
 import rospy
 import random
 
-str_00 = "bring me coffee under the white chair"
+str_00 = "bring me drink on the chair"
 ans_00 = "yes"
 
 
 file_path=path.expanduser('~/catkin_ws/src/happymimi_voice/config/')
-minimum_value=0.5 #コサイン類似度の最低値
+minimum_value=0.3 #コサイン類似度の最低値
 #ベクトル読み込み
 print("data loading...")
 word_vectors = api.load("glove-twitter-200")
@@ -176,6 +176,7 @@ class SearchObject():
             elif place_similarty != False:
                 return self.wordJoin(place_similarty)
             else:
+                print("radom_00")
                 return self.wordJoin(random.randrange(self.long))
 
         elif switch_num%2==1:
@@ -184,6 +185,7 @@ class SearchObject():
             elif name_similarity != False:
                 return self.wordJoin(name_similarity)
             else:
+                print("random_01")
                 return self.wordJoin(random.randrange(self.long))
 
 

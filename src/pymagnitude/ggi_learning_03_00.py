@@ -126,7 +126,7 @@ class GgiinStruction:
             #辞書型でvalueは集合
             class_data1=pickle.load(f)
 
-        with open(file_path+"/class_by_mg.pkl","rb") as w:
+        with open(file_path+"/class_by_word2vec.pkl","rb") as w:
             #辞書型でvalueは集合
             class_data2=pickle.load(w)
 

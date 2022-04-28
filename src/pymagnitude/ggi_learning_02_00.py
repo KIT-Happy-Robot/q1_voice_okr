@@ -15,9 +15,9 @@ from happymimi_voice_msgs.srv import GgiLearningResponse
 from nltk.tag.stanford import StanfordPOSTagger
 
 
-object_name_00 = ["curry noodle",'finish　training']
+object_name_00 = ["brown drink",'finish　training']
 
-plase_name_00 = "on a shelf"
+plase_name_00 = "on the tall and brown table"
 
 file_path=os.path.expanduser('~/catkin_ws/src/happymimi_voice/config') #作成場所の指定
 #nltkのモデルを読み込む
@@ -46,7 +46,7 @@ class GgiinStruction:
         rospy.wait_for_service('/stt_server')
         print("server is ready")
         self.stt=rospy.ServiceProxy('/stt_server',SpeechToText)
-        self.server=rospy.Service('/ggi_learning_03',GgiLearning,self.register_object)
+        self.server=rospy.Service('/ggi_learning_02',GgiLearning,self.register_object)
         self.tts=rospy.ServiceProxy('/tts', StrTrg)
 
     #オブジェクト認識と登録
@@ -126,7 +126,7 @@ class GgiinStruction:
             #辞書型でvalueは集合
             class_data1=pickle.load(f)
 
-        with open(file_path+"/class_by_mg.pkl","rb") as w:
+        with open(file_path+"/class_by_word2vec.pkl","rb") as w:
             #辞書型でvalueは集合
             class_data2=pickle.load(w)
 
@@ -181,6 +181,6 @@ class GgiinStruction:
 
 
 if __name__=='__main__':
-    rospy.init_node('ggi_learning_03')
+    rospy.init_node('ggi_learning_02')
     GgiinStruction()
     rospy.spin()

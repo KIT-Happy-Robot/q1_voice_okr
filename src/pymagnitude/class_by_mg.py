@@ -21,7 +21,7 @@ dict_class={}
 
 for c in class_list:
     for word,value in model.most_similar([c],topn=max_word):
-        #print(word, value)
+        print(word, value)
         if value >= minimum_evaluation_value:
             add_word.append(word)
     dict_class[c]=set(add_word)
