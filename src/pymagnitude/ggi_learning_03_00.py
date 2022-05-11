@@ -15,6 +15,10 @@ from happymimi_voice_msgs.srv import GgiLearningResponse
 from nltk.tag.stanford import StanfordPOSTagger
 
 
+object_name_00 = ["curry noodle",'finish　training']
+
+plase_name_00 = "on a shelf"
+
 file_path=os.path.expanduser('~/catkin_ws/src/happymimi_voice/config') #作成場所の指定
 #nltkのモデルを読み込む
 pos_tag = StanfordPOSTagger(model_filename = file_path + "/dataset/stanford-postagger/models/english-bidirectional-distsim.tagger",
@@ -42,7 +46,7 @@ class GgiinStruction:
         rospy.wait_for_service('/stt_server')
         print("server is ready")
         self.stt=rospy.ServiceProxy('/stt_server',SpeechToText)
-        self.server=rospy.Service('/ggi_learning',GgiLearning,self.register_object)
+        self.server=rospy.Service('/ggi_learning_03',GgiLearning,self.register_object)
         self.tts=rospy.ServiceProxy('/tts', StrTrg)
 
     #オブジェクト認識と登録
@@ -50,62 +54,63 @@ class GgiinStruction:
         end=False
         self.tts("please say the object.")
         #ものの登録
-        while 1:
+        for string in object_name_00:
             if not end:
                 #short_str:短い単語を認識しやすくする　context_phrases:認識しやすくしたい単語のリスト　boost_value:登録した単語の認識度合いを調節
-                string=self.stt(short_str=True,
-                    context_phrases=self.object_template.append('finish　training'),
-                    boost_value=13.0)
+                #string=self.stt(short_str=True,
+                #    context_phrases=self.object_template.append('finish　training'),
+                #    boost_value=13.0)
 
                 #finish trainingと認識したときpickleファイルに保存してリストを初期化
-                if  lev.distance(string.result_str, 'finish　training')/(max(len(string.result_str), len('finish　training')) *1.00)<0.3:
+                if  lev.distance(string, 'finish　training')/(max(len(string), len('finish　training')) *1.00)<0.3:
                     self.WordGeneralization()
                     self.save_name('' , True)
                     self.name=[]
                     self.feature=[]
                     break
 
-                self.tts(string.result_str + ' is this OK?')
+                self.tts(string + ' is this OK?')
 
-            recognition = self.stt(short_str=True,context_phrases=['yes','no','again'],
-                    boost_value=15.0)
+            recognition = "yes"#self.stt(short_str=True,context_phrases=['yes','no','again'],
+                    #boost_value=15.0)
             #認識した内容で良いかを確認
             #yesのときリストにその単語を追加
-            if 'yes' in recognition.result_str:
-                self.save_name(string.result_str , True,add=False)
+            if 'yes' in recognition:
+                self.save_name(string , True,add=False)
                 end=False
                 self.tts('next')
             #noのときリストに追加しない
-            elif 'no' in recognition.result_str:
+            elif 'no' in recognition:
                 self.tts('please one more time')
                 end=False
             #認識した内容を聞き取れなかったときもう一度発話
-            elif 'again' in recognition.result_str:
-                self.tts(string.result_str +' is this OK?')
+            elif 'again' in recognition:
+                self.tts(string +' is this OK?')
                 end=True
 
         self.tts('Please tell me the place.')
         #場所の登録
         while 1:
             if not end:
-                string=self.stt(short_str=True,
-                    context_phrases=self.place_template,
-                    boost_value=13.0)
-                self.tts(string.result_str +' Is this OK?')
+                #string=self.stt(short_str=True,
+                #    context_phrases=self.place_template,
+                #    boost_value=13.0)
+                string = plase_name_00
+                self.tts(string +' Is this OK?')
 
-            recognition = self.stt(short_str=True,context_phrases=['yes','no','again'],
-                    boost_value=15.0)
+            recognition = "yes"#self.stt(short_str=True,context_phrases=['yes','no','again'],
+                    #boost_value=15.0)
 
-            if 'yes' in recognition.result_str:
-                res=self.save_name(string.result_str , False)
+            if 'yes' in recognition:
+                res=self.save_name(string , False)
                 break
 
-            elif 'no' in recognition.result_str:
+            elif 'no' in recognition:
                 self.tts('please one more time')
                 end=False
 
-            elif 'again' in recognition.result_str:
-                self.tts(string.result_str +' Is this OK?')
+            elif 'again' in recognition:
+                self.tts(string +' Is this OK?')
                 end=True
 
         self.feature=[]
@@ -176,6 +181,6 @@ class GgiinStruction:
 
 
 if __name__=='__main__':
-    rospy.init_node('ggi_learning')
+    rospy.init_node('ggi_learning_03')
     GgiinStruction()
     rospy.spin()
