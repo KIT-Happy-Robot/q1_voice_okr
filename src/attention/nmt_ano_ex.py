@@ -33,17 +33,22 @@ def input_change(ch, input_sen, num):
 # print([d for d in doc])
 for d in doc:
 
-    if d.text == "," :
+    if d.text == "," and d.text == "and":
         ch = True
 
     elif d.pos_ == "VERB" and d.dep_ != "aux":
         input_change(ch, d.text, 0)
 
-    elif d.pos_ == "PRON" and d.dep_ == "pobj" or d.text == "name" or d.text == "category":
+    elif d.pos_ == "PROPN" and d.dep_ == "pobj" or d.text == "name" or d.text == "category":
         input_change(ch, d.text, 1) 
 
     elif d.pos_ == "NOUN" and d.dep_ == "pobj" and d.text == "room" or d.text == "location":
         input_change(ch, d.text, 2)
+
+    elif d.pos_ == "" and d.dep_ == 
+    # else:
+        # sentence.append("none")
+
 
 print(sentence)
 
