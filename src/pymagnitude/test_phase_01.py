@@ -16,7 +16,7 @@ from nltk.tag.stanford import StanfordPOSTagger
 import rospy
 import random
 
-str_00 = "bring me drink on the chair"
+str_00 = "bring me coffee on the chair"
 ans_00 = "yes"
 
 
@@ -46,7 +46,7 @@ class GgiTest():
 
     def main(self,req):
         switch_num=0
-        tts_pub('start test_phase')
+        tts_pub('start test phase')
         print("start test_phase")
         #登録したファイルを読み込む
         if not path.isfile(file_path+'/object_file.pkl'):
@@ -56,6 +56,7 @@ class GgiTest():
         else:
             with open(file_path+'/object_file.pkl','rb') as f:
                 self.dict=pickle.load(f)
+                
 
         #オペレーターの指示を認識
         while 1:
