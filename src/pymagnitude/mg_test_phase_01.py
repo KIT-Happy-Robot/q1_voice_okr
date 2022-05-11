@@ -18,7 +18,7 @@ import random
 
 from pymagnitude import Magnitude
 
-str_00 = "bring me drink on the chair"
+str_00 = "bring me the drink on chair"
 
 ans_00 = "yes"
 
@@ -84,6 +84,7 @@ class GgiTest():
                 i=0
                 #形態素解析
                 pos = pos_tag.tag(string.split())
+                print(pos)
                 #場所とオブジェクトそれぞれの特徴と名前をいつにまとめる
                 while i<len(pos):
                     #前置詞かつofではなかったら場所のリストに追加
@@ -177,6 +178,7 @@ class SearchObject():
             #ものの名前と特徴の一致
             branch = self.matchedSearch('object_name','object_feature',name,name_feature,i)
             if branch:
+                print("55")
                 return branch
 
         #最終オブジェクト名または場所名で判断
