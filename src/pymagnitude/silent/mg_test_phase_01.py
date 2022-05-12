@@ -16,15 +16,21 @@ from nltk.tag.stanford import StanfordPOSTagger
 import rospy
 import random
 
-str_00 = "bring me coffee on the chair"
+from pymagnitude import Magnitude
+
+str_00 = "bring me drink on the chair"
+
 ans_00 = "yes"
 
 
 file_path=path.expanduser('~/catkin_ws/src/happymimi_voice/config/')
-minimum_value=0.3 #コサイン類似度の最低値
+minimum_value=0.1 #コサイン類似度の最低値
 #ベクトル読み込み
 print("data loading...")
-word_vectors = api.load("glove-twitter-200")
+#word_vectors = api.load("glove-twitter-200")
+file_path_mg=(file_path + 'stanford/glove.840B.300d.magnitude')
+word_vectors = Magnitude(file_path_mg)
+
 #nltkのモデルを読み込む
 pos_tag = StanfordPOSTagger(model_filename = file_path + "dataset/stanford-postagger/models/english-bidirectional-distsim.tagger",
                             path_to_jar = file_path + "dataset/stanford-postagger/stanford-postagger.jar")
@@ -56,7 +62,6 @@ class GgiTest():
         else:
             with open(file_path+'/object_file.pkl','rb') as f:
                 self.dict=pickle.load(f)
-                
 
         #オペレーターの指示を認識
         while 1:
@@ -68,6 +73,7 @@ class GgiTest():
             #音声認識
             #string=self.stt(short_str=False)
             string = str_00
+            print(string)
             shut='shut down'
             #shut downを認識したら終了
             if  shut in string:#.result_str:
@@ -118,7 +124,7 @@ class GgiTest():
                 print(place_feature)
 
 
-                #ggi_learingで学習した内容から探索
+                #ggi_learing学習した内容から探索
                 search_class=SearchObject(self.stt,self.tts,self.dict)
                 str=search_class.main(name,name_feature,place,place_feature,switch_num)
                 if str=='no':
@@ -149,12 +155,14 @@ class SearchObject():
             #ものの名前と場所の名前の一致を確認
             branch = self.matchedSearch('object_name','place_name',name,place,i)
             if branch:
+                print("00")
                 return branch
 
         for i in range(self.long):
             #場所の名前と特徴が一致している
             branch=self.matchedSearch('place_name','place_feature',place,place_feature,i)
             if branch:
+                print("01")
                 return branch
 
         #類似度計算
@@ -162,6 +170,7 @@ class SearchObject():
         place_similarty=self.matchedWord2vec("place_name",place)
         #同じ場所を示していたら
         if name_similarity==place_similarty and name_similarity != False:
+            print("5")
             return self.wordJoin(name_similarity)
 
         for i in range(self.long):
@@ -173,17 +182,21 @@ class SearchObject():
         #最終オブジェクト名または場所名で判断
         if switch_num%2==0 :
             if name_similarity != False:
+                print("6")
                 return self.wordJoin(name_similarity)
             elif place_similarty != False:
+                print("7")
                 return self.wordJoin(place_similarty)
             else:
-                print("radom_00")
+                print("random_00")
                 return self.wordJoin(random.randrange(self.long))
 
         elif switch_num%2==1:
             if place_similarty != False:
+                print("9")
                 return self.wordJoin(place_similarty)
             elif name_similarity != False:
+                print("10")
                 return self.wordJoin(name_similarity)
             else:
                 print("random_01")
