@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 
 import MeCab
 import pickle as pk
@@ -10,7 +9,7 @@ from sklearn import datasets
 
 
 class DatasetMaker():
-    def __init__(self,dataset_path="../resource",read_file="sequence.txt",read_file2="sequence2.txt",
+    def __init__(self,dataset_path="../resource",read_file="sequence_ex.txt",read_file2="sequence2.txt",
                 input_out="input_str.txt",output_out="output_str.txt",input_id="input_id.txt",
                 output_id="output_id.txt",lang="en",max_data=50000):
         self.dataset_path=dataset_path
@@ -64,26 +63,34 @@ class DatasetMaker():
             output_str=str_line.replace("output","")
             cnt = False
 
-        return (input_str,output_str, cnt)
+        return (input_str,output_str,cnt)
 
     def sentenceSplit(self,sentence,inp):
         sentence_ls=[]
-        str_ls=sentence.split
+        delimiter_ls=[]
+        del_ls = 0
+        #listに変換
+        str_ls=sentence.split()
+        # print(str_ls)
         if inp:
-            delimiter_ls=[i for i,x in enumerate(str_ls) if "," in x or "and" in x]
+            # delimiter_ls=[i for i,x in enumerate(str_ls) if "," in x or "and" in x]
+            for i,x in enumerate(str_ls):
+                if "," in x or "and" in x:
+                    del_ls += 1
+            delimiter_ls.append(del_ls)
             for i,num in enumerate(delimiter_ls):
                 if i==0:
-                    if "and" in str_ls[num]:
-                        sentence_ls.append(str_ls[:num])
+                    if "and" in str_ls[i]:
+                        sentence_ls.append(str_ls[i])
                     else:
-                        str_ls[num]=str_ls[num].replace(",","")
-                        sentence_ls.append(str_ls[:num+1])
+                        str_ls[i]=str_ls[i].replace(",","")
+                        sentence_ls.append(str_ls[:i+1])
                 else:
-                    str_ls[num]=str_ls[num].replace(",","")
+                    str_ls[i]=str_ls[i].replace(",","")
                     if len(delimiter_ls)-1 != i:
-                        sentence_ls.append(str_ls[num+1:delimiter_ls[i+1]])
+                        sentence_ls.append(str_ls[i+1:delimiter_ls[i+1]])
                     else:
-                        sentence_ls.append(str_ls[num+1:])
+                        sentence_ls.append(str_ls[i+1:])
 
         else:
             sub_ls=[]
@@ -93,7 +100,7 @@ class DatasetMaker():
                     sentence_ls.append(sub_ls)
                     sub_ls=[]
 
-        print(sentence_ls)
+        # print(sentence_ls)
         return sentence_ls
 
 
@@ -103,24 +110,24 @@ class DatasetMaker():
         cnt = False
         with open(self.read_file2,"r") as f:
             for str in f:
-                #print("str:",str)
+                # print("str:",str)
                 input_str,output_str,cnt=self.delethead(str,cnt)
-                #print(input_str)
-                #print(output_str)
-                #print(cnt)
+                # print(input_str)
+                # print(output_str)
+                # print(cnt)
                 if cnt == True:
                     #sentence = self.sentenceSplit(input_str, True)
                     #input_txt.write(" ".join(sentence))
                     for sentence_in in self.sentenceSplit(input_str,True):
-                        input_txt.write("\n".join(sentence_in))
+                        input_txt.write(" ".join(sentence_in))
                         #print(sentence)
 
                 else:
                     #sentence = self.sentenceSplit(output_str, False)
                     #output_txt.write(" ".join(sentence))
                     for sentence_out in self.sentenceSplit(output_str,False):
-                        output_txt.write("\n".join(sentence_out))
-                        print(sentence_out)
+                        output_txt.write(" ".join(sentence_out))
+                        # print(sentence_out)
 
         input_txt.close()
         output_txt.close()
@@ -156,9 +163,9 @@ class DatasetMaker():
 
 
     def all_run(self):
-        #self.normalization()
+        self.normalization()
         self.segmentationwrite()
-        #self.changeid()
+        self.changeid()
 
 if __name__ == "__main__":
     datasetmaker = DatasetMaker()
