@@ -43,9 +43,32 @@ https://self-development.info/%E3%80%90python%E3%80%91%E7%88%86%E9%80%9F%E3%81%A
  →　Stanford - GloVe	Common Crawl 840B　の heavy を選ぶ（8Gくらい？）（プログラムのファイルのパス変えれば違うモデルでも多分大丈夫（？））
  
 ## Usage
-- 
- 
- 
+
+### pickleファイルを作る
+ggi_learning.py を実行する際にclass_by_mg.pkl(又はclass_by_word2vec.pkl)とclass_generalization.pklが必要になるため先に作っておく必要がある(pathは'~/catkin_ws/src/happymimi_voice/config')
+
+- class_by_mg.py (class_by_word2vec.py), class_data_make.py　を実行する（pythonで動くのでrosrunしなくても良い）(最初はそこそこ時間がかかる)
+
+### ggiを実行する
+
+- happymimi_voice_common の tts_srvserver.py / stt_server.py を立てる
+
+- ggi_learning.py と mg_test_phase.py を立てる (Word2vecで利用したいときはtest_phase.py)
+
+- ggi_test.py　を実行　(ものと場所の登録が二回される、プログラムの中のggi_learningを呼び出す回数をいじれば変えられる)
+
+### 音声認識を使わずにggiを実行する
+
+- happymimi_voice_common の tts_srvserver.py / stt_server.py を立てる 
+
+- ggi_learning_01.py ~ ggi_learning_03.py , test_phase_01.py を立てる 
+
+  -> (文章を変えたいときはggi_learning_0~ の中のobject_name_00とかplase_name_00 , test_phase_01のstr_00を変える)
+  
+  -> (word2vecで作ったpickleファイルを使うときはggi_learning_01_00.py ~ を使う)
+
+- ggi_test_01.py を実行　(ものと場所の登録が三回)
+
  ## EDITER
 - 瓦　舜生(2021年度参加)
  
