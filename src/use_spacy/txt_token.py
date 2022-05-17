@@ -6,13 +6,13 @@ from os import path
 import spacy
 from spacy_preparation import preparation
 
-def tokenText():
+def tokenText(text):
     sens = []
-    docs = preparation()
-    for doc in docs:
-        word = [d for d in doc]
-        sens.append(word)
+    doc = preparation(text)
+    word = [d for d in doc]
+    sens.append(word)
     return sens
 
 if __name__ == "__main__":
-    print(tokenText())
+    text = input("英文を入力>> ")
+    print(tokenText(text))

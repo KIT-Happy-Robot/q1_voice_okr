@@ -15,4 +15,6 @@ def semeticSimilarity(word1, word2):
     return(word_similarity)
 
 if __name__ == '__main__':
-    print(semeticSimilarity('go', 'come'))
+    word1 = input("英単語を入力>> ")
+    word2 = input("英単語を入力>> ")
+    print(semeticSimilarity(word1, word2))

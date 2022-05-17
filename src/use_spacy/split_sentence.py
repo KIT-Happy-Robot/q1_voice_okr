@@ -2,18 +2,18 @@
 #-*- coding: utf-8 -*-
 
 import rospy
-from os import path
 import spacy
+import pprint
 from spacy_preparation import preparation
 
-def splitSentence():
+def splitSentence(text):
     sens = []
-    docs = preparation()
-    for doc in docs:
-        sents = list(doc.sents)
-        for sent in sents:
-            sens.append(sent)
+    doc = preparation(text)
+    sents = list(doc.sents)
+    for sent in sents:
+        sens.append(sent)
     return (sens)
 
 if __name__ == '__main__':
-    print(splitSentence())
+    text = input("英文を入力>> ")
+    pprint.pprint(splitSentence(text))
