@@ -23,7 +23,8 @@ https://ishitonton.hatenablog.com/entry/2018/11/24/004748
 
 - spacy_preparation.py
 
-→ 
+→ （テキストをspacyで扱うための準備を行うもの）
+　（テキストのインポートとトークン化を行う）
 
 - split_sentence.py
 
@@ -35,7 +36,8 @@ https://ishitonton.hatenablog.com/entry/2018/11/24/004748
 
 - txt_token.py
 
-→ 
+→ （トークン化したテキストを単語ごとに分けるもの）
+　（要素に分けてリストへの格納を行っている）
 
 ## How to build enviroment（環境を構築する方法）
 - 
