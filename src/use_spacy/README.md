@@ -44,6 +44,19 @@ https://ishitonton.hatenablog.com/entry/2018/11/24/004748
   （要素に分けてリストへの格納を行っている）
 
 ## How to build enviroment（環境を構築する方法）
-- 
+- 基本的にはhappymimi_voiceのREADMEや音声班のesaの記事を参考に（今回はあまり使わないかも）
 
-- 
+- spacyの学習モデルに関しては以下のサイトを参考に利用している
+
+　https://spacy.io/models/en
+
+→　（今回は en_core_web_md を利用）
+
+## Usage
+
+### 仮想環境に入っておく
+このパッケージ内に入っているノードを実行するためには仮想環境に入っている必要がある
+仮想環境の関係はesaの記事を参照
+
+## EDITER
+-柴 和希（2021年度参加）
