@@ -4,7 +4,7 @@
 import rospy
 import spacy
 
-nlp = spacy.load('en_core_web_sm')
+nlp = spacy.load('en_core_web_md')
 
 def preparation(text):
     doc = nlp(text)

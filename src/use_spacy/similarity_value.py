@@ -5,7 +5,7 @@ import rospy
 import spacy
 from txt_pos import pos
 
-nlp = spacy.load('en_core_web_sm')
+nlp = spacy.load('en_core_web_md')
 
 def similarity(text, word):
     sim_list = []
