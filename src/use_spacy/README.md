@@ -57,6 +57,7 @@ https://ishitonton.hatenablog.com/entry/2018/11/24/004748
 ### 仮想環境に入っておく
 このパッケージ内に入っているノードを実行するためには仮想環境に入っている必要がある
 仮想環境の関係はesaの記事を参照
+https://kithappyrobot.esa.io/posts/166
 
 ## EDITER
 -柴 和希（2021年度参加）
