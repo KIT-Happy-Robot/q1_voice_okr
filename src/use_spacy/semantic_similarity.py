@@ -3,12 +3,13 @@
 
 import rospy
 import spacy
+from spacy_preparation import preparation
 
 nlp = spacy.load('en_core_web_md')
 
 def semeticSimilarity(word1, word2):
-    word1 = nlp(word1)
-    word2 = nlp(word2)
+    word1 = preparation(word1)
+    word2 = preparation(word2)
 
     word_similarity = word1.similarity(word2)
 
