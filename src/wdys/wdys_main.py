@@ -15,6 +15,7 @@ from happymimi_voice_msgs.srv import TTSResponse
 from happymimi_msgs.srv import StrTrg
 
 
+
 tts_pub = rospy.ServiceProxy('/tts', StrTrg)
 stt_pub = rospy.ServiceProxy('/stt_server', SpeechToText)
 
@@ -42,6 +43,9 @@ def main():
             tts_pub("Sorry I couldn't be recognized")
             print("one more time")
             
+            
+
+
 
 
 
