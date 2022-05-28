@@ -7,6 +7,7 @@ import numpy as np
 import io
 from sklearn import datasets
 
+import itertools
 
 class DatasetMaker():
     def __init__(self,dataset_path="../resource",
@@ -83,40 +84,24 @@ class DatasetMaker():
     def sentenceSplit(self,sentence,inp):
         sentence_ls=[]
         delimiter_ls=[]
-        del_ls = 0
         #listに変換
         str_ls=sentence.split()
-        # print(str_ls)
         if inp:
-            delimiter_ls=[i for i,x in enumerate(str_ls) if "," in x or "and" in x]
-            for i,num in enumerate(str_ls):
-                if "and" in str_ls[i]:
-                    sentence_ls.append(str_ls[:i])
-                    sentence_ls.append(str_ls[i+1:])
+            for i,x in enumerate(str_ls):
+                if "," in x or "and" in x:
+                    delimiter_ls.append(i)
 
-                elif "," in str_ls[i]:
-                    sentence_ls.append(str_ls[:i])
-                    sentence_ls.append(str_ls[i+1:])
+            if len(delimiter_ls) == 1:
+                sentence_ls.append(str_ls[:delimiter_ls[0]])
+                sentence_ls.append(str_ls[delimiter_ls[0]+1:])
 
-                else:
-                    continue
-            # for i,x in enumerate(str_ls):
-                # if "," in x or "and" in x:
-                    # del_ls += 1
-            # delimiter_ls.append(del_ls)
-            # for i,num in enumerate(delimiter_ls):
-                # if i==0:
-                    # if "and" in str_ls[i]:
-                        # sentence_ls.append(str_ls[i])
-                    # else:
-                        # str_ls[i]=str_ls[i].replace(",","")
-                        # sentence_ls.append(str_ls[:i+1])
-                # else:
-                    # str_ls[i]=str_ls[i].replace(",","")
-                    # if len(delimiter_ls)-1 != i:
-                        # sentence_ls.append(str_ls[i+1:delimiter_ls[i+1]])
-                    # else:
-                        # sentence_ls.append(str_ls[i+1:])
+            elif len(delimiter_ls) == 0:
+                return str_ls, 0
+
+            else:
+                sentence_ls.append(str_ls[:delimiter_ls[0]])
+                sentence_ls.append(str_ls[delimiter_ls[0]+1:delimiter_ls[1]])
+                sentence_ls.append(str_ls[delimiter_ls[1]+2:])
 
         else:
             sub_ls=[]
@@ -126,36 +111,33 @@ class DatasetMaker():
                     sentence_ls.append(sub_ls)
                     sub_ls=[]
 
-        # print(sentence_ls)
-        return sentence_ls
+        return sentence_ls, 1
 
 
     def segmentationwrite(self):
         input_txt=open(self.input_out,"w")
         output_txt=open(self.output_out,"w")
         cnt = False
-        # sentence_in = []
+        sentence_in = []
+        sentence_out = []
         with open(self.read_file2,"r") as f:
-            for str in f:
-                # print("str:",str)
-                input_str,output_str,cnt=self.delethead(str,cnt)
+            for str_sen in f:
+                input_str,output_str,cnt=self.delethead(str_sen,cnt)
                 if cnt == True:
-                    #sentence = self.sentenceSplit(input_str, True)
-                    #input_txt.write(" ".join(sentence))
-                    for sentence_in in self.sentenceSplit(input_str,True):
-                        # sentence_in = self.sentenceSplit(input_str, True)
-                        input_txt.write(" ".join(sentence_in))
-                        print(sentence_in)
+                    a,count = self.sentenceSplit(input_str,True)
+                    if count == 0:
+                        input_txt.write(" ".join(map(str,a))+ '\n')
 
+                    else:
+                        lst_a = list(itertools.chain.from_iterable(a))
+                        input_txt.write(" ".join(map(str, lst_a))+ '\n')
                 else:
-                    for sentence_out in self.sentenceSplit(output_str,False):
-                    # sentence_out = self.sentenceSplit(output_str, False)
-                        output_txt.write(" ".join(sentence_out))
-                        print(sentence_out)
+                    b, count= self.sentenceSplit(output_str, False)
+                    lst_b = list(itertools.chain.from_iterable(b))
+                    output_txt.write(" ".join(map(str, lst_b))+ '\n')
 
         input_txt.close()
         output_txt.close()
-
 
 
     def changer(self,file_name,write_name):

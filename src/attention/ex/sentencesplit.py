@@ -1,43 +1,44 @@
 # -*- coding: utf-8 -*-
-sentence = "please escort name to the location and you will find him at the location"
+sentence = "please escort name to the location and you will find him at the location , and tell a joke"
 str = "Please escort {name} to the {location}, you will find him at the {location}"
 str_out = "escort{name}{location}Nonefindhim{location}None"
+sentence_c = "could you tell me how many people in the room are"
 sentence_ls=[]
-str_ls = sentence.split()
+str_ls = sentence_c.split()
 # print(str_ls)
 
 # delimiter_ls=[i for i,x in enumerate(str_ls) if "," in x or "and" in x]
-delimiter_ls = 0
+delimiter_ls = []
 for i,x in enumerate(str_ls):
     if "," in x or "and" in x:
-        delimiter_ls = i 
+        delimiter_ls.append(i) 
 
-for i,num in enumerate(str_ls):
-    if "and" in str_ls[i]:
+# print(delimiter_ls)
+'''
+for i,x in enumerate(str_ls):
+    if "and" in x:
         sentence_ls.append(str_ls[:i])
         sentence_ls.append(str_ls[i+1:])
 
-    elif "," in str_ls[i]:
+    elif "," in x:
         sentence_ls.append(str_ls[:i])
         sentence_ls.append(str_ls[i:])
 
     else:
         continue
-    # if i == 0:
-        # if "and" in str_ls[i]:
-            # sentence_ls.append(str_ls[:i])
-        
-        # else:
-            # str_ls[i]=str_ls[i].replace(",","")
-            # sentence_ls.append(str_ls[:i+1])
-            
-    # else:
-        # str_ls[i]=str_ls[i].replace(",","")
-        # if delimiter_ls-1 != i:
-            # sentence_ls.append(str_ls[i+1:])
-            
-        # else:
-            # sentence_ls.append(str_ls[i+1:])
+'''
+if len(delimiter_ls) == 1:
+    sentence_ls.append(str_ls[:delimiter_ls[0]])
+    sentene_ls.append(str_ls[delimiter_ls[0]+1:])
+
+elif len(delimiter_ls) == 0:
+    print(1)
+    print(str_ls)
+
+else:
+    sentence_ls.append(str_ls[:delimiter_ls[0]])
+    sentence_ls.append(str_ls[delimiter_ls[0]+1:delimiter_ls[1]])
+    sentence_ls.append(str_ls[delimiter_ls[1]+2:])
 
 print(sentence_ls)
 # print(delimiter_ls)
