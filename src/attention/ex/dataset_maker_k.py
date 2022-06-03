@@ -62,7 +62,7 @@ class DatasetMaker():
                     sentence = re.sub(r"([?.!,¿])", r" \1 ", sentence)
                     sentence = re.sub(r'[" "]+', " ", sentence)
                     sentence = re.sub(r"[^a-zA-Z?.!,¿]+", " ", sentence)
-                    sentence = sentence.rstrip().strip()
+                    sentence = sentence.rstrip(" .").strip()
                     # sentence = '<start>' + sentence + '<end>\n'
                     w.write(sentence+"\n")
 

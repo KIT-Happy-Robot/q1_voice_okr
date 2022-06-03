@@ -14,19 +14,6 @@ for i,x in enumerate(str_ls):
         delimiter_ls.append(i) 
 
 # print(delimiter_ls)
-'''
-for i,x in enumerate(str_ls):
-    if "and" in x:
-        sentence_ls.append(str_ls[:i])
-        sentence_ls.append(str_ls[i+1:])
-
-    elif "," in x:
-        sentence_ls.append(str_ls[:i])
-        sentence_ls.append(str_ls[i:])
-
-    else:
-        continue
-'''
 if len(delimiter_ls) == 1:
     sentence_ls.append(str_ls[:delimiter_ls[0]])
     sentene_ls.append(str_ls[delimiter_ls[0]+1:])
