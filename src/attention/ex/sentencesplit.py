@@ -29,11 +29,11 @@ else:
 
 print(sentence_ls)
 # print(delimiter_ls)
-sub_ls=[]
+sub=[]
 for i,word in enumerate(str_ls):
-    sub_ls.append(word)
+    sub.append(word)
     if i%4==3:
-        sentence_ls.append(sub_ls)
-        sub_ls=[]
+        sentence_ls.append(sub)
+        sub=[]
 
-# print(sub_ls)
+print(sub)
