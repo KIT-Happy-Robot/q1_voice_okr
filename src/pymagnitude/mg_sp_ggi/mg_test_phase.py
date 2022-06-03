@@ -44,6 +44,7 @@ class GgiTest():
 
     def main(self,req):
         switch_num=0
+        self.tts("start test phase")
         print("start test_phase")
         #登録したファイルを読み込む
         if not path.isfile(file_path+'/object_file.pkl'):
@@ -145,12 +146,14 @@ class SearchObject():
             #ものの名前と場所の名前の一致を確認
             branch = self.matchedSearch('object_name','place_name',name,place,i)
             if branch:
+                print("ものの名前と場所の名前の一致を確認")
                 return branch
 
         for i in range(self.long):
             #場所の名前と特徴が一致している
             branch=self.matchedSearch('place_name','place_feature',place,place_feature,i)
             if branch:
+                print("場所の名前と特徴が一致している")
                 return branch
 
         #類似度計算
@@ -158,29 +161,37 @@ class SearchObject():
         place_similarty=self.matchedWord2vec("place_name",place)
         #同じ場所を示していたら
         if name_similarity==place_similarty and name_similarity != False:
+            print("同じ場所を示していたら")
             return self.wordJoin(name_similarity)
 
         for i in range(self.long):
             #ものの名前と特徴の一致
             branch = self.matchedSearch('object_name','object_feature',name,name_feature,i)
             if branch:
+                print("ものの名前と特徴の一致")
                 return branch
 
         #最終オブジェクト名または場所名で判断
         if switch_num%2==0 :
             if name_similarity != False:
+                print("3")
                 return self.wordJoin(name_similarity)
             elif place_similarty != False:
+                print("2")
                 return self.wordJoin(place_similarty)
             else:
+                print("random_0")
                 return self.wordJoin(random.randrange(self.long))
 
         elif switch_num%2==1:
             if place_similarty != False:
+                print("1")
                 return self.wordJoin(place_similarty)
             elif name_similarity != False:
+                print("0")
                 return self.wordJoin(name_similarity)
             else:
+                print("random_1")
                 return self.wordJoin(random.randrange(self.long))
 
 
