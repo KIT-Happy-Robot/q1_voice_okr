@@ -1,3 +1,4 @@
+#2022/06/03
 from os import path
 file_path = path.expanduser('~/catkin_ws/src/happymimi_voice/actplan_generator/resource/')
 
