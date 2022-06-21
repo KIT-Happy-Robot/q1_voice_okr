@@ -64,17 +64,19 @@ class GgiTest():
             place_feature=[]
             #音声認識
             string=self.stt(short_str=False)
+            print(string)
+            string = string.result_str.strip('.')
 
             shut='shut down'
             #shut downを認識したら終了
-            if  shut in string.result_str:
+            if  shut in string:
                 self.tts("shut down")
                 break
 
             else:
                 i=0
                 #形態素解析
-                pos = pos_tag.tag(string.result_str.split())
+                pos = pos_tag.tag(string.split())
                 #場所とオブジェクトそれぞれの特徴と名前をいつにまとめる
                 while i<len(pos):
                     #前置詞かつofではなかったら場所のリストに追加
@@ -199,12 +201,15 @@ class SearchObject():
 
     def listenAnswer(self) -> str:
         while 1:
+            print('lisen')
             y=self.stt_server(short_str=False)
             if 'yes' in y.result_str:
                 self.tts_server('OK.')
-                return 'yes'
-            elif 'no' in y.result_str:
-                return 'no'
+                print('OK')
+                return True
+            elif ('no' or 'NO.') in y.result_str:
+                print('False')
+                return False
 
 
     def matchedSearch(self,dict_key1:str, dict_key2:str, information_1:list, information_2:list, num:int) -> (str,bool):
@@ -239,14 +244,18 @@ class SearchObject():
 
 
     def wordJoin(self,correct:int) -> str:
-        self.tts_server('I will go '+' '.join(self.dict['place_feature'][correct]) +' '.join(self.dict['place_name'][correct])+' is this  OK?')
-        print('I will go '+' '.join(self.dict['place_feature'][correct]) +' '.join(self.dict['place_name'][correct])+' is this  OK?')
-        if self.listenAnswer()==False:
-            return 'no'
-        if self.dict['place_feature'][correct]:
-            return ' '.join(self.dict['place_feature'][correct]) +' '+' '.join(self.dict['place_name'][correct])
+        self.tts_server('I will go '+' '.join(self.dict['place_feature'][correct]) +' '+''.join(self.dict['place_name'][correct])+' is this  OK?')
+        print('I will go '+' '.join(self.dict['place_feature'][correct]) +' '+''.join(self.dict['place_name'][correct])+' is this  OK?')
+
+        if self.listenAnswer():
+            if self.dict['place_feature'][correct]:
+
+                return ' '.join(self.dict['place_feature'][correct]) +' '+' '.join(self.dict['place_name'][correct])
+            else:
+
+                return ' '.join(self.dict['place_name'][correct])
         else:
-            return ' '.join(self.dict['place_name'][correct])
+            return 'no'
 
 
 

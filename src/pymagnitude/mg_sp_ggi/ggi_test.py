@@ -6,15 +6,15 @@ from happymimi_voice_msgs.srv import GgiLearning
 from happymimi_voice_msgs.srv import GgiLearningResponse
 import pprint
 
-test_phase_00 = rospy.ServiceProxy('/ggi_learning',GgiLearning)
+#test_phase_00 = rospy.ServiceProxy('/ggi_learning',GgiLearning)
 
-ser_00 = str(test_phase_00())
+#ser_00 = str(test_phase_00())
 
-ser_01 = str(test_phase_00())
+#ser_01 = str(test_phase_00())
 
-pprint.pprint(ser_00)
+#pprint.pprint(ser_00)
 
-pprint.pprint(ser_01)
+#pprint.pprint(ser_01)
 
 while 1:
 

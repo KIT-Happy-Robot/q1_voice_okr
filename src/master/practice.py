@@ -76,7 +76,6 @@ class GraspOrPass(smach.State):
         self.base_control = BaseControl()
 
     def execute(self, userdata):
-        
         rospy.loginfo('Executing state: GRASP_OR_PASS')
         if userdata.GOP_count_in == 0:
             self.base_control.rotateAngle(userdata.find_angle_in)
@@ -102,8 +101,6 @@ class GraspOrPass(smach.State):
             self.head_pub.publish(0)
             tts_srv('/cml/return_start')#"Return to start position."
             return 'PASS_finish'
-
-     
 
 
 class Chaser(smach.State):
@@ -193,10 +190,10 @@ class Return(smach.State):
 
 
 if __name__ == '__main__':
-    rospy.init_name('master')
+    rospy.init_node('master')
     rospy.loginfo('Start')
     tts_srv("/cml/start_cml")#"Start carry my luggage."
-    sm_top = smach.StateMachine(outcomes = ['finish_sm_top'])
+    sm_top = smach.StateMachine(outcomes = ['finish_sm_top'])#終了条件？
     sm_top.userdata.GOP_count = 0
     sm_top.userdata.find_angle = 20
     with sm_top:
@@ -229,34 +226,5 @@ if __name__ == '__main__':
                 Return(),
                 transitions = {'return_finish':'finish_sm_top'})
 
-        outcome = sm_top.execute()    
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+        outcome = sm_top.execute()
 
