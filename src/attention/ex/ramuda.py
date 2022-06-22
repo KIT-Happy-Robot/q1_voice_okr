@@ -15,7 +15,8 @@ def change_w(x):
 
     print(a)
     return a
-a,b  = list(map(change_word, "1 12 13 16"))
-print(x)
+a  = list(map(change_word, [1,3,4,5,6,7,8,9,10,11,12,13,11,14,2]))
+# print(x)
 # print(change_w)
-# print(b)
+#print(a)
+print(a)
