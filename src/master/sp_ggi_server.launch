@@ -1,0 +1,6 @@
+<launch>
+  <node pkg="q1_voice_okr" name="ggi_learning" type="ggi_learning.py" output="screen" />
+  <node pkg="q1_voice_okr" name="test_phase" type="mg_test_phase.py" output="screen" />
+  <node pkg="happymimi_voice_common" name="stt_server" type="stt_server.py" output="screen" />
+  <node pkg="happymimi_voice_common" name="tts_srvserver" type="tts_srvserver.py" output="screen" />
+</launch>
