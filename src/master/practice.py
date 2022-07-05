@@ -171,6 +171,7 @@ class Chaser(smach.State):
                 self.find_msg = 'NULL'
             else:
                 pass
+
 class Return(smach.State):
     def __init__(self):
         smach.State.__init__(self, outcomes = ['return_finish'])
