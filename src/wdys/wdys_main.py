@@ -21,7 +21,8 @@ stt_pub = rospy.ServiceProxy('/stt_server', SpeechToText)
 
 
 def main():
-    
+
+
     while 1:
         tts_pub("Are you ready")
         print("Are you ready")
@@ -42,8 +43,6 @@ def main():
         else:
             tts_pub("Sorry I couldn't be recognized")
             print("one more time")
-            
-            
 
 
 
@@ -52,4 +51,4 @@ def main():
 
 if __name__ == '__main__':
     rospy.init_node('wdys_main')
-    main()          
+    main()
