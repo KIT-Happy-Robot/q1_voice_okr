@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 #/usr/bin/env python
+=======
+#!/usr/bin/env python
+>>>>>>> 385d47736d55234214ffeb062a0ea3fcc7b090bf
 # -*- coding: utf-8 -*-
 
 import rospy
@@ -16,14 +20,20 @@ from happymimi_voice_msgs.srv import YesNo
 #sys.path.insert(0, base_path)
 #from base_control import BaseControl
 
+<<<<<<< HEAD
 from enter_room.srv import EnterRoom
 
+=======
+>>>>>>> 385d47736d55234214ffeb062a0ea3fcc7b090bf
 from happymimi_voice_msgs.srv import GgiLearning
 from happymimi_voice_msgs.srv import GgiLearningResponse
 
 
 tts_pub = rospy.ServiceProxy('/tts', StrTrg)
+<<<<<<< HEAD
 stt_pub = rospy.ServiceProxy('/stt_server', SpeechToText)
+=======
+>>>>>>> 385d47736d55234214ffeb062a0ea3fcc7b090bf
 
 test_phase_00 = rospy.ServiceProxy('/ggi_learning',GgiLearning)
 
@@ -34,8 +44,11 @@ class Move_First(smach.State):#初期位置まで移動
 
     def execute(self, state):
         rospy.loginfo('Executing state: MOVE_FIRST')
+<<<<<<< HEAD
         enter_room = rospy.ServiceProxy('/enter_room_server', EnterRoom)
         enter_room(1.0, 0.5)
+=======
+>>>>>>> 385d47736d55234214ffeb062a0ea3fcc7b090bf
         return 'move_first_finish'
 
 class Chaser (smach.State):#物体がある位置まで移動
@@ -43,6 +56,7 @@ class Chaser (smach.State):#物体がある位置まで移動
         smach.State.__init__(self, outcomes = ['chaser_finish'],
                                    input_keys = ['PASS_count_in'],
                                    output_keys = ['PASS_count_out'])
+<<<<<<< HEAD
         self.chaser_pub = rospy.Publisher('/follow_human', String, queue_size = 1)
         rospy.Subscriber('/find_str', String, self.findCB)
         rospy.Subscriber('/cmd_vel', Twist, self.cmdCB)
@@ -73,6 +87,12 @@ class Chaser (smach.State):#物体がある位置まで移動
                     continue
             else:
                 continue
+=======
+
+    def execute(self, state):
+        rospy.loginfo('Executing state: CHASER')
+        return 'chaser_finish'
+>>>>>>> 385d47736d55234214ffeb062a0ea3fcc7b090bf
 
 class Register (smach.State):#場所と物の登録
     def __init__(self):

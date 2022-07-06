@@ -16,5 +16,5 @@ stt_pub = rospy.ServiceProxy('/stt_server', SpeechToText)
 
 
 tts_pub("こんにちわ")
-sen = stt_pub().result_str
+sen = stt_pub(short_str = True).result_str
 print(sen)
