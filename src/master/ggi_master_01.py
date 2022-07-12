@@ -14,7 +14,8 @@ from happymimi_voice_msgs.srv import YesNo
 #from happymimi_navigation.srv import NaviLocation
 #base_path = roslib.packages.get_pkg_dir('happymimi_teleop') + '/src/'
 #sys.path.insert(0, base_path)
-#from base_control import BaseControl
+#from base_control import BaseControla
+from happymimi_navigation.srv import SetLocation
 
 from enter_room.srv import EnterRoom
 
@@ -50,6 +51,7 @@ class Chaser (smach.State):#物体がある位置まで移動
         self.base_control = BaseControl()
         self.find_msg = 'NULL'
         self.cmd_sub = 0.0
+        self.start_time = time.time()
 
     def findCB(self, receive_msg):
         self.find_msg = receive_msg.data
@@ -57,22 +59,61 @@ class Chaser (smach.State):#物体がある位置まで移動
     def cmdCB(self, receive_msg):
         self.cmd_sub = receive_msg.linear.x
 
-
-
     def execute(self, state):
         rospy.loginfo('Executing state: CHASER')
+        pass_count - userdata.PASS_count_in
+        tts_pub = "I'll follow you."
         self.chaser_pub.publish('start')
         while not rospy.is_shutdown():
+            rospy.sleep(0.1)
+            now_time = time.time() - self.find_time
             if self.cmd_sub == 0.0 and self.find_msg == 'NULL':
-                ans = stt_pub(short_str = True ,Truecontext_phrases = ["yes","no"]).result_str
-                if ans == 'yes':
-                    self.chaser_pub.publish("stop")
-                    return 'chaser_finish'
-                elif ans == 'no':
-                    self.chaser_pub.publish('stop')
-                    continue
-            else:
+                self.find_msg = 'lost_stop'
+                self.strat_time = time.time()
+            elif self.cmd_sub == 0.0 and self.find_msg == 'NULL':
+                tts_pub('Is this the location of the object')
+                count = False
+                while count:
+                    ans = stt_pub(short_str = True,
+                                  context_phrases = ["yes","no"]).result_str
+                    if ans in "yes":
+                        self.chaser_pub.publish('stop')
+                        self.base_control.rotateAngle(0, 0)
+                        userdata.PASS_count_out = pass_count + 1
+                        return 'chaser_finish'
+                    elif ans in "no":
+                        tts_pub = ("OK, continue to follow")
+                        count = True
+                    else:
+                        continue
                 continue
+            elif self.find_msg == "lost":
+                self.strat_time == time.time()
+                self.find_msg ="lost_after"
+            elif self.find_msg == "lost_after" and now_time >= 1.0:
+                tts_pub("I lost sight of you. Wait for me please")
+                self.find_msg = "lost_long"
+            elif self.find_msg == "lost_long" and now_time >= 11.0:
+                tts_pub('Is this the location of the object')
+                count = False
+                while count:
+                    ans = stt_pub(short_str = True,
+                                  context_phrases = ["yes","no"]).result_str
+                    if ans == "yes":
+                        self.chaser_pub.publish('stop')
+                        self.base_control.rotateAngle(0, 0)
+                        userdata.PASS_count_out = pass_count + 1
+                        return 'chaser_finish'
+                    elif ans == "no":
+                        tts_pub = ("OK, continue to follow")
+                        self.find_msg = "NULL"
+                        count = True
+                    else:
+                        continue
+            elif self.cmd_sub != 0.0:
+                seld.find_msg = "NULL"
+            else:
+                pass
 
 class Register (smach.State):#場所と物の登録
     def __init__(self):
@@ -86,11 +127,17 @@ class Register (smach.State):#場所と物の登録
     def execute(self, userdata):
         count = userdata.count_in
         rospy.loginfo('Executing state: REGISTER')
-        self.learning()
-        if self.learning:
+        plase =  self.learning().split('"')
+        plase_name = plase[1]
+        if plase_name:
             if count < 2:
                 count += 1
                 userdata.count_out = count
+                self.set = rospy.ServiceProxy('/set_location', SetLocation)
+                self.set("state: 'add' name: {}".format(plase_name))
+                if count == 2:
+                    self.save = rospy.ServiceProxy('/set_location', SetLocation)
+                    self.save(("state: 'save' name: 'ggi_location.yaml'")
                 return 'register_success'
             else:
                 return 'finish_traning'
